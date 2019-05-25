@@ -1,0 +1,21 @@
+{
+  "name": "serverless-stage",
+  "version": "1.0.0",
+  "description": "Import stage and profile information from serverless-setup aware projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "serverless-stage": "cli.js"
+  },
+  "repository": {
+    "git": "https://github.com/rhdeck/serverless-stage"
+  },
+  "homepage": "https://github.com/rhdeck/serverless-stage",
+  "author": "Ray Deck",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.19.0"
+  }
+}
