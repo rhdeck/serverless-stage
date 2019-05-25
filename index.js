@@ -47,7 +47,7 @@ function findProfile(dir = process.cwd()) {
     let key = deps[i];
     let nextDir = path.resolve(dependencies[key]);
     process.chdir(nextDir);
-    parentProfile = findStage(nextDir);
+    parentProfile = findProfile(nextDir);
     process.chdir(cwd);
     if (parentProfile) break;
   }
