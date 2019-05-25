@@ -1,7 +1,7 @@
 const path = require("path");
 // const commander = require("commander");
-const _stage = "";
-const _profile = "";
+let _stage = "";
+let _profile = "";
 function findStage(dir = process.cwd()) {
   if (_stage) return _stage;
   //assuming at least one servless dependency in tree has stage defined
