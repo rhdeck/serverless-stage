@@ -2,7 +2,7 @@ const path = require("path");
 // const commander = require("commander");
 let _stage = "";
 let _profile = "";
-
+let _region = "";
 function findStage(dir = process.cwd()) {
   if (_stage) return _stage;
   //assuming at least one servless dependency in tree has stage defined
@@ -56,7 +56,7 @@ function findProfile(dir = process.cwd()) {
   return parentProfile;
 }
 function findRegion(dir = process.cwd()) {
-  if (_profile) return _profile;
+  if (_region) return _region;
   //assuming at least one servless dependency in tree has stage defined
   const { profile, serverless: { dependencies } = {} } = require(path.join(
     dir,
