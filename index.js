@@ -86,8 +86,8 @@ function getRegion() {
   if (region) return region;
   else return "us-east-1"; // environmental default
 }
-function configAWS(AWS) {
-  const profile = findProfile();
+function configAWS(AWS, profile) {
+  if (!profile) profile = findProfile();
   if (profile) {
     const credentials = new AWS.SharedIniFileCredentials({ profile });
     AWS.config.credentials = credentials;
