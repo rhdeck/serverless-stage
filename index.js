@@ -2,6 +2,7 @@ const path = require("path");
 // const commander = require("commander");
 let _stage = "";
 let _profile = "";
+
 function findStage(dir = process.cwd()) {
   if (_stage) return _stage;
   //assuming at least one servless dependency in tree has stage defined
@@ -85,9 +86,18 @@ function getRegion() {
   if (region) return region;
   else return "us-east-1"; // environmental default
 }
+function configAWS(AWS) {
+  const profile = findProfile();
+  if (profile) {
+    const credentials = new AWS.SharedIniFileCredentials({ profile });
+    AWS.config.credentials = credentials;
+  }
+  return AWS;
+}
 module.exports = {
   findStage,
   findProfile,
   findRegion,
-  getRegion
+  getRegion,
+  configAWS
 };
