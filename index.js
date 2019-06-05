@@ -1,3 +1,4 @@
+const AWS = require("aws-sdk");
 const path = require("path");
 // const commander = require("commander");
 let _stage = "";
@@ -101,3 +102,4 @@ module.exports = {
   getRegion,
   configAWS
 };
+configAWS(AWS);

@@ -16,6 +16,7 @@
   "author": "Ray Deck",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.469.0",
     "commander": "^2.19.0"
   }
 }
