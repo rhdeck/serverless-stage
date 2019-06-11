@@ -59,10 +59,11 @@ function findProfile(dir = process.cwd()) {
 function findRegion(dir = process.cwd()) {
   if (_region) return _region;
   //assuming at least one servless dependency in tree has stage defined
-  const { profile, serverless: { dependencies } = {} } = require(path.join(
-    dir,
-    "package.json"
-  ));
+  const {
+    region,
+    profile,
+    serverless: { dependencies } = {}
+  } = require(path.join(dir, "package.json"));
   if (region) {
     _region = region;
     return region;
