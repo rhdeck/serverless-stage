@@ -1,6 +1,6 @@
 {
   "name": "serverless-stage",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Import stage and profile information from serverless-setup aware projects",
   "main": "index.js",
   "scripts": {
