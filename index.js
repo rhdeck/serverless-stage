@@ -4,6 +4,7 @@ const path = require("path");
 let _stage = "";
 let _profile = "";
 let _region = "";
+let _name = "";
 function findStage(dir = process.cwd()) {
   if (_stage) return _stage;
   //assuming at least one servless dependency in tree has stage defined
@@ -29,6 +30,21 @@ function findStage(dir = process.cwd()) {
   }
   if (parentStage) _stage = parentStage;
   return parentStage;
+}
+function findName(dir = process.cwd(), baseName = "base") {
+  if (_name) return _name;
+  //assuming at least one servless dependency in tree has stage defined
+  const { serverless: { dependencies } = {} } = require(path.join(
+    dir,
+    "package.json"
+  ));
+  const base = dependencies[baseName];
+  if (!base) return false;
+  //open base
+  const { name } = require(path.join(dir, base, "package.json"));
+  if (!name) return false;
+  _name = name;
+  return name;
 }
 function findProfile(dir = process.cwd()) {
   if (_profile) return _profile;
