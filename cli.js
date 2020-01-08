@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const cp = require("child_process");
-const { findStage, findProfile } = require("./index");
+const { findStage, findProfile, findName } = require("./index");
 const stage = findStage();
 const profile = findProfile();
 const name = findName();
