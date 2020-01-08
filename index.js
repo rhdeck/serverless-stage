@@ -116,6 +116,7 @@ module.exports = {
   findProfile,
   findRegion,
   getRegion,
-  configAWS
+  configAWS,
+  findName
 };
 configAWS(AWS);
