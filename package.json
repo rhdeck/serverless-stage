@@ -1,6 +1,6 @@
 {
   "name": "@raydeck/serverless-stage",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Import stage and profile information from serverless-setup aware projects",
   "main": "index.js",
   "scripts": {
