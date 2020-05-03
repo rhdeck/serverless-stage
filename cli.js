@@ -13,26 +13,30 @@ if (args[0] == "setup") {
     "yarn",
     ["run", "serverless-setup", ...stageArray, ...profileArray, ...nameArray],
     {
-      stdio: "inherit"
+      stdio: "inherit",
     }
   );
 } else {
   const setupRequiredCommands = ["deploy"];
-  const commands = args.filter(arg => !arg.includes("-"));
+  const remap = { deployskip: "deploy" };
 
-  if (commands.filter(cmd => setupRequiredCommands.includes(cmd)).length) {
+  const commands = args
+    .map((a) => remap[a] || a)
+    .filter((arg) => !arg.includes("-"));
+
+  if (commands.some((cmd) => setupRequiredCommands.includes(cmd))) {
     cp.spawnSync(
       "yarn",
       ["run", "serverless-setup", ...stageArray, ...profileArray, ...nameArray],
       {
-        stdio: "inherit"
+        stdio: "inherit",
       }
     );
   }
-  if (!args.find(arg => arg == "--stage" || arg == "-s")) {
+  if (!args.find((arg) => arg == "--stage" || arg == "-s")) {
     args = [...args, ...stageArray];
   }
   cp.spawnSync("yarn", ["run", "serverless", ...args, ...profileArray], {
-    stdio: "inherit"
+    stdio: "inherit",
   });
 }
