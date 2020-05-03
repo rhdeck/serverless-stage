@@ -20,9 +20,7 @@ if (args[0] == "setup") {
   const setupRequiredCommands = ["deploy"];
   const remap = { deployskip: "deploy" };
 
-  const commands = args
-    .map((a) => remap[a] || a)
-    .filter((arg) => !arg.includes("-"));
+  const commands = args.filter((arg) => !arg.includes("-"));
 
   if (commands.some((cmd) => setupRequiredCommands.includes(cmd))) {
     cp.spawnSync(
@@ -33,8 +31,9 @@ if (args[0] == "setup") {
       }
     );
   }
+
   if (!args.find((arg) => arg == "--stage" || arg == "-s")) {
-    args = [...args, ...stageArray];
+    args = [...args.map((a) => remap[a] || a), ...stageArray];
   }
   cp.spawnSync("yarn", ["run", "serverless", ...args, ...profileArray], {
     stdio: "inherit",
