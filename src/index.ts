@@ -1,24 +1,19 @@
-const AWS = require("aws-sdk");
-const path = require("path");
-// const commander = require("commander");
+import AWS from "aws-sdk";
+import path from "path";
+import { getServerlessConfig } from "@raydeck/serverless-base";
 let _stage = "";
-let _profile = "";
-let _region = "";
-let _name = "";
-function findStage(dir = process.cwd()) {
+export function findStage(dir: string = process.cwd()) {
   if (_stage) return _stage;
-  //assuming at least one servless dependency in tree has stage defined
-  const { stage, serverless: { dependencies } = {} } = require(path.join(
-    dir,
-    "package.json"
-  ));
+  const { stage, dependencies } = <
+    { stage?: string; dependencies?: { [key: string]: string } }
+  >getServerlessConfig(dir);
   if (stage) {
     _stage = stage;
     return stage;
   }
-  if (!dependencies) return false;
+  if (!dependencies) return;
   const deps = Object.keys(dependencies);
-  let parentStage = false;
+  let parentStage: string | undefined;
   const cwd = process.cwd();
   for (let i = 0; i < deps.length; i++) {
     let key = deps[i];
@@ -28,38 +23,41 @@ function findStage(dir = process.cwd()) {
     process.chdir(cwd);
     if (parentStage) break;
   }
-  if (parentStage) _stage = parentStage;
-  return parentStage;
+  if (parentStage) {
+    _stage = parentStage;
+    return parentStage;
+  }
 }
-function findName(dir = process.cwd(), baseName = "base") {
+let _name = "";
+export function findName(dir = process.cwd(), baseName = "base") {
   if (_name) return _name;
   //assuming at least one servless dependency in tree has stage defined
-  const { serverless: { dependencies } = {} } = require(path.join(
-    dir,
-    "package.json"
-  ));
-  const base = dependencies[baseName];
-  if (!base) return false;
+  const { dependencies } = <{ dependencies?: { [key: string]: string } }>(
+    getServerlessConfig(dir)
+  );
+  if (!dependencies) return;
+  const base: string | undefined = dependencies[baseName];
+  if (!base) return;
   //open base
-  const { name } = require(path.join(dir, base, "package.json"));
-  if (!name) return false;
+  const { name } = <{ name?: string }>getServerlessConfig(base);
+  if (!name) return;
   _name = name;
   return name;
 }
-function findProfile(dir = process.cwd()) {
+let _profile = "";
+export function findProfile(dir = process.cwd()) {
   if (_profile) return _profile;
   //assuming at least one servless dependency in tree has stage defined
-  const { profile, serverless: { dependencies } = {} } = require(path.join(
-    dir,
-    "package.json"
-  ));
+  const { profile, dependencies } = <
+    { profile?: string; dependencies?: { [key: string]: string } }
+  >getServerlessConfig(dir);
   if (profile) {
     _profile = profile;
     return profile;
   }
-  if (!dependencies) return false;
+  if (!dependencies) return;
   const deps = Object.keys(dependencies);
-  let parentProfile = false;
+  let parentProfile: string | undefined;
   const cwd = process.cwd();
   for (let i = 0; i < deps.length; i++) {
     let key = deps[i];
@@ -69,23 +67,25 @@ function findProfile(dir = process.cwd()) {
     process.chdir(cwd);
     if (parentProfile) break;
   }
-  if (parentProfile) _profile = parentProfile;
-  return parentProfile;
+  if (parentProfile) {
+    _profile = parentProfile;
+    return parentProfile;
+  }
 }
-function findRegion(dir = process.cwd()) {
+let _region = "";
+export function findRegion(dir = process.cwd()) {
   if (_region) return _region;
   //assuming at least one servless dependency in tree has stage defined
-  const { region, serverless: { dependencies } = {} } = require(path.join(
-    dir,
-    "package.json"
-  ));
+  const { region, dependencies } = <
+    { region?: string; dependencies?: { [key: string]: string } }
+  >getServerlessConfig(dir);
   if (region) {
     _region = region;
     return region;
   }
-  if (!dependencies) return false;
+  if (!dependencies) return;
   const deps = Object.keys(dependencies);
-  let parentProfile = false;
+  let parentProfile: string | undefined;
   const cwd = process.cwd();
   for (let i = 0; i < deps.length; i++) {
     let key = deps[i];
@@ -95,28 +95,24 @@ function findRegion(dir = process.cwd()) {
     process.chdir(cwd);
     if (parentProfile) break;
   }
-  if (parentProfile) _region = parentProfile;
-  return parentProfile;
+  if (parentProfile) {
+    _region = parentProfile;
+    return parentProfile;
+  }
 }
-function getRegion() {
-  const region = findRegion();
+export function getRegion(dir = process.cwd()) {
+  const region = findRegion(dir);
   if (region) return region;
   else return "us-east-1"; // environmental default
 }
-function configAWS(AWS, profile) {
-  if (!profile) profile = findProfile();
+export function configAWS(
+  AWS: any,
+  profile: string | undefined = findProfile()
+) {
   if (profile) {
     const credentials = new AWS.SharedIniFileCredentials({ profile });
     AWS.config.credentials = credentials;
   }
   return AWS;
 }
-module.exports = {
-  findStage,
-  findProfile,
-  findRegion,
-  getRegion,
-  configAWS,
-  findName
-};
 configAWS(AWS);

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-const cp = require("child_process");
-const { findStage, findProfile, findName } = require("./index");
+import { spawnSync } from "child_process";
+import { findStage, findProfile, findName } from "./index";
 const stage = findStage();
 const profile = findProfile();
 const name = findName();
@@ -9,7 +9,7 @@ const nameArray = name ? ["--name", name] : [];
 const stageArray = stage ? ["--stage", stage] : [];
 const profileArray = profile ? ["--aws-profile", profile] : [];
 if (args[0] == "setup") {
-  cp.spawnSync(
+  spawnSync(
     "yarn",
     ["run", "serverless-setup", ...stageArray, ...profileArray, ...nameArray],
     {
@@ -18,12 +18,12 @@ if (args[0] == "setup") {
   );
 } else {
   const setupRequiredCommands = ["deploy"];
-  const remap = { deployskip: "deploy" };
+  const remap: { [key: string]: string } = { deployskip: "deploy" };
 
   const commands = args.filter((arg) => !arg.includes("-"));
 
   if (commands.some((cmd) => setupRequiredCommands.includes(cmd))) {
-    cp.spawnSync(
+    spawnSync(
       "yarn",
       ["run", "serverless-setup", ...stageArray, ...profileArray, ...nameArray],
       {
@@ -31,11 +31,10 @@ if (args[0] == "setup") {
       }
     );
   }
-
   if (!args.find((arg) => arg == "--stage" || arg == "-s")) {
     args = [...args.map((a) => remap[a] || a), ...stageArray];
   }
-  cp.spawnSync("yarn", ["run", "serverless", ...args, ...profileArray], {
+  spawnSync("yarn", ["run", "serverless", ...args, ...profileArray], {
     stdio: "inherit",
   });
 }

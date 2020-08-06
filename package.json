@@ -1,22 +1,49 @@
 {
   "name": "@raydeck/serverless-stage",
-  "version": "2.2.1",
-  "description": "Import stage and profile information from serverless-setup aware projects",
-  "main": "index.js",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Stage detector and wrangler for serverless",
+  "main": "lib/index.js",
+  "bin": "lib/bin.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "bin": {
-    "serverless-stage": "cli.js"
+    "pre-commit": "(git-branch-is --not main || (set -u && echo $ALLOWMAIN)) && yarn test",
+    "test": "tsc --noEmit",
+    "build": "tsc",
+    "docs": "typedoc --theme markdown --readme none --mode file --excludeNotExported --includeVersion --out docstemp && rm README.md ; concat-md docstemp > README.md && rm -rf docstemp",
+    "prepublishOnly": "yarn build && yarn docs && git commit README.md -m \"docs: updating docs\" && git push"
   },
   "repository": {
-    "git": "https://github.com/rhdeck/serverless-stage"
+    "type": "git",
+    "url": "git+https://github.com/rhdeck/serverless-stage.git"
   },
-  "homepage": "https://github.com/rhdeck/serverless-stage",
   "author": "Ray Deck",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rhdeck/serverless-stage/issues"
+  },
+  "homepage": "https://github.com/rhdeck/serverless-stage#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@types/node": "^14.0.27",
+    "commanderdoc": "^0.1.4",
+    "concat-md": "^0.3.5",
+    "git-branch-is": "^4.0.0",
+    "husky": "^4.2.5",
+    "install-peers-cli": "^2.2.0",
+    "typedoc": "^0.17.8",
+    "typedoc-plugin-markdown": "^2.4.0",
+    "typescript": "^3.9.7"
+  },
+  "files": [
+    "src",
+    "lib"
+  ],
   "dependencies": {
-    "aws-sdk": "^2.469.0",
-    "commander": "^2.19.0"
+    "@raydeck/serverless-base": "^1.0.2",
+    "commander": "^6.0.0"
+  },
+  "peerDependencies": {
+    "aws-sdk": "^2.727.1"
   }
 }
