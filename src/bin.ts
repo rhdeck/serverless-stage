@@ -5,7 +5,7 @@ const stage = findStage();
 const profile = findProfile();
 const name = findName();
 let args = process.argv.slice(2);
-const nameArray = name ? ["--name", name] : [];
+const nameArray = name ? ["--stack-name", name] : [];
 const stageArray = stage ? ["--stage", stage] : [];
 const profileArray = profile ? ["--aws-profile", profile] : [];
 if (args[0] == "setup") {
