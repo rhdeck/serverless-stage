@@ -1,17 +1,26 @@
 #!/usr/bin/env node
 import { spawnSync } from "child_process";
-import { findStage, findProfile, findName } from "./index";
+import { findStage, findProfile, findName, findRegion } from "./index";
 const stage = findStage();
 const profile = findProfile();
 const name = findName();
+const region = findRegion();
 let args = process.argv.slice(2);
 const nameArray = name ? ["--stack-name", name] : [];
 const stageArray = stage ? ["--stage", stage] : [];
 const profileArray = profile ? ["--aws-profile", profile] : [];
+const regionArray = region ? ["--region"] : [];
 if (args[0] == "setup") {
   spawnSync(
     "yarn",
-    ["run", "serverless-setup", ...stageArray, ...profileArray, ...nameArray],
+    [
+      "run",
+      "serverless-setup",
+      ...stageArray,
+      ...regionArray,
+      ...profileArray,
+      ...nameArray,
+    ],
     {
       stdio: "inherit",
     }
@@ -25,7 +34,14 @@ if (args[0] == "setup") {
   if (commands.some((cmd) => setupRequiredCommands.includes(cmd))) {
     spawnSync(
       "yarn",
-      ["run", "serverless-setup", ...stageArray, ...profileArray, ...nameArray],
+      [
+        "run",
+        "serverless-setup",
+        ...stageArray,
+        ...regionArray,
+        ...profileArray,
+        ...nameArray,
+      ],
       {
         stdio: "inherit",
       }
