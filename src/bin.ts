@@ -9,7 +9,7 @@ let args = process.argv.slice(2);
 const nameArray = name ? ["--stack-name", name] : [];
 const stageArray = stage ? ["--stage", stage] : [];
 const profileArray = profile ? ["--aws-profile", profile] : [];
-const regionArray = region ? ["--region"] : [];
+const regionArray = region ? ["--region", region] : [];
 if (args[0] == "setup") {
   spawnSync(
     "yarn",
@@ -49,6 +49,9 @@ if (args[0] == "setup") {
   }
   if (!args.find((arg) => arg == "--stage" || arg == "-s")) {
     args = [...args.map((a) => remap[a] || a), ...stageArray];
+  }
+  if (!args.find((arg) => arg == "--region" || arg == "-r")) {
+    args = [...args.map((a) => remap[a] || a), ...regionArray];
   }
   spawnSync("yarn", ["run", "serverless", ...args, ...profileArray], {
     stdio: "inherit",
