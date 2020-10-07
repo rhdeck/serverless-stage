@@ -1,6 +1,6 @@
 {
   "name": "@raydeck/serverless-stage",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "Stage detector and wrangler for serverless",
   "main": "lib/index.js",
   "bin": "lib/bin.js",
