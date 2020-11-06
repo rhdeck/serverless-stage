@@ -32,7 +32,7 @@ if (args[0] == "setup") {
   const commands = args.filter((arg) => !arg.includes("-"));
 
   if (commands.some((cmd) => setupRequiredCommands.includes(cmd))) {
-    spawnSync(
+    const { status, signal } = spawnSync(
       "yarn",
       [
         "run",
@@ -46,6 +46,9 @@ if (args[0] == "setup") {
         stdio: "inherit",
       }
     );
+    if (status !== 0) {
+      throw new Error(`setup failed with status code ${status}`);
+    }
   }
   if (!args.find((arg) => arg == "--stage" || arg == "-s")) {
     args = [...args.map((a) => remap[a] || a), ...stageArray];
@@ -53,7 +56,14 @@ if (args[0] == "setup") {
   if (!args.find((arg) => arg == "--region" || arg == "-r")) {
     args = [...args.map((a) => remap[a] || a), ...regionArray];
   }
-  spawnSync("yarn", ["run", "serverless", ...args, ...profileArray], {
-    stdio: "inherit",
-  });
+  const { signal, status } = spawnSync(
+    "yarn",
+    ["run", "serverless", ...args, ...profileArray],
+    {
+      stdio: "inherit",
+    }
+  );
+  if (status !== 0) {
+    throw new Error(`setup failed with status code ${status}`);
+  }
 }
