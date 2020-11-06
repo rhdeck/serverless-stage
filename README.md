@@ -2,7 +2,7 @@
 <a name="readmemd"></a>
 
 
-# @raydeck/serverless-stage - v3.1.0
+# @raydeck/serverless-stage - v3.1.1
 
 ## Index
 
@@ -37,7 +37,7 @@
 
 • **_name**: *string* = ""
 
-*Defined in [index.ts:31](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/index.ts#L31)*
+*Defined in [index.ts:31](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/index.ts#L31)*
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 • **_profile**: *string* = ""
 
-*Defined in [index.ts:47](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/index.ts#L47)*
+*Defined in [index.ts:47](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/index.ts#L47)*
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 • **_region**: *string* = ""
 
-*Defined in [index.ts:75](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/index.ts#L75)*
+*Defined in [index.ts:75](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/index.ts#L75)*
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 • **_stage**: *string* = ""
 
-*Defined in [index.ts:4](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/index.ts#L4)*
+*Defined in [index.ts:4](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/index.ts#L4)*
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 • **args**: *string[]* = process.argv.slice(2)
 
-*Defined in [bin.ts:8](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/bin.ts#L8)*
+*Defined in [bin.ts:8](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/bin.ts#L8)*
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 • **name**: *undefined | string* = findName()
 
-*Defined in [bin.ts:6](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/bin.ts#L6)*
+*Defined in [bin.ts:6](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/bin.ts#L6)*
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 • **nameArray**: *string[]* = name ? ["--stack-name", name] : []
 
-*Defined in [bin.ts:9](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/bin.ts#L9)*
+*Defined in [bin.ts:9](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/bin.ts#L9)*
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 • **profile**: *undefined | string* = findProfile()
 
-*Defined in [bin.ts:5](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/bin.ts#L5)*
+*Defined in [bin.ts:5](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/bin.ts#L5)*
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 • **profileArray**: *string[]* = profile ? ["--aws-profile", profile] : []
 
-*Defined in [bin.ts:11](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/bin.ts#L11)*
+*Defined in [bin.ts:11](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/bin.ts#L11)*
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 • **region**: *undefined | string* = findRegion()
 
-*Defined in [bin.ts:7](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/bin.ts#L7)*
+*Defined in [bin.ts:7](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/bin.ts#L7)*
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 • **regionArray**: *string[]* = region ? ["--region", region] : []
 
-*Defined in [bin.ts:12](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/bin.ts#L12)*
+*Defined in [bin.ts:12](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/bin.ts#L12)*
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 • **stage**: *undefined | string* = findStage()
 
-*Defined in [bin.ts:4](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/bin.ts#L4)*
+*Defined in [bin.ts:4](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/bin.ts#L4)*
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 • **stageArray**: *string[]* = stage ? ["--stage", stage] : []
 
-*Defined in [bin.ts:10](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/bin.ts#L10)*
+*Defined in [bin.ts:10](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/bin.ts#L10)*
 
 ## Functions
 
@@ -141,7 +141,7 @@ ___
 
 ▸ **configAWS**(`AWS`: any, `profile`: string | undefined): *any*
 
-*Defined in [index.ts:108](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/index.ts#L108)*
+*Defined in [index.ts:108](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/index.ts#L108)*
 
 **Parameters:**
 
@@ -158,7 +158,7 @@ ___
 
 ▸ **findName**(`dir`: string, `baseName`: string): *undefined | string*
 
-*Defined in [index.ts:32](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/index.ts#L32)*
+*Defined in [index.ts:32](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/index.ts#L32)*
 
 **Parameters:**
 
@@ -175,7 +175,7 @@ ___
 
 ▸ **findProfile**(`dir`: string): *undefined | string*
 
-*Defined in [index.ts:48](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/index.ts#L48)*
+*Defined in [index.ts:48](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/index.ts#L48)*
 
 **Parameters:**
 
@@ -191,7 +191,7 @@ ___
 
 ▸ **findRegion**(`dir`: string): *undefined | string*
 
-*Defined in [index.ts:76](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/index.ts#L76)*
+*Defined in [index.ts:76](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/index.ts#L76)*
 
 **Parameters:**
 
@@ -207,7 +207,7 @@ ___
 
 ▸ **findStage**(`dir`: string): *undefined | string*
 
-*Defined in [index.ts:5](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/index.ts#L5)*
+*Defined in [index.ts:5](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/index.ts#L5)*
 
 **Parameters:**
 
@@ -223,7 +223,7 @@ ___
 
 ▸ **getRegion**(`dir`: string): *string*
 
-*Defined in [index.ts:103](https://github.com/rhdeck/serverless-stage/blob/b9e24f7/src/index.ts#L103)*
+*Defined in [index.ts:103](https://github.com/rhdeck/serverless-stage/blob/9745d6a/src/index.ts#L103)*
 
 **Parameters:**
 
