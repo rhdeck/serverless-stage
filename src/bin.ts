@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { spawnSync } from "child_process";
+import { existsSync } from "fs";
 import { findStage, findProfile, findName, findRegion } from "./index";
 const stage = findStage();
 const profile = findProfile();
@@ -56,14 +57,27 @@ if (args[0] == "setup") {
   if (!args.find((arg) => arg == "--region" || arg == "-r")) {
     args = [...args.map((a) => remap[a] || a), ...regionArray];
   }
-  const { signal, status } = spawnSync(
-    "yarn",
-    ["run", "serverless", ...args, ...profileArray],
-    {
-      stdio: "inherit",
+  if (existsSync("node_modules/serverless/bin/serverless.js")) {
+    const { signal, status } = spawnSync(
+      "node",
+      ["node_modules/serverless/bin/serverless.js", ...args, ...profileArray],
+      {
+        stdio: "inherit",
+      }
+    );
+    if (status !== 0) {
+      throw new Error(`setup failed with status code ${status}`);
     }
-  );
-  if (status !== 0) {
-    throw new Error(`setup failed with status code ${status}`);
+  } else {
+    const { signal, status } = spawnSync(
+      "yarn",
+      ["run", "-s", "serverless", ...args, ...profileArray],
+      {
+        stdio: "inherit",
+      }
+    );
+    if (status !== 0) {
+      throw new Error(`setup failed with status code ${status}`);
+    }
   }
 }
