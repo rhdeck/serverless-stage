@@ -7,7 +7,7 @@
   "scripts": {
     "pre-commit": "(git-branch-is --not main || (set -u && echo $ALLOWMAIN)) && yarn test",
     "test": "tsc --noEmit",
-    "build": "tsc && chmod +x lib/bin.js && yarn pack -f package.tgz",
+    "build": "tsc && chmod +x lib/bin.js && yarn pack -f package.tgz && domino push \"serverless-stage:build\"",
     "docs": "typedoc --theme markdown --readme none --mode file --excludeNotExported --includeVersion --out docstemp && rm README.md ; concat-md docstemp > README.md && rm -rf docstemp",
     "prepublishOnly": "yarn build && yarn docs && git commit README.md -m \"docs: updating docs\" && git push",
     "prepare": "install-peers"
